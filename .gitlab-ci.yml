@@ -3,7 +3,7 @@
 #
 # Copyright (c) 2020 Ignacio Vizzo, all rights reserved
 default:
-  image: gitlab.ipb.uni-bonn.de:4567/ipb-team/robots/ipb-car/docker_images/ros:latest
+  image: prbonn/ros:noetic
   before_script:
     - cd catkin_ws/
   artifacts:
