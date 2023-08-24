@@ -1,0 +1,20 @@
+---
+Checks:
+'-*,
+cppcoreguidelines-*,
+-cppcoreguidelines-avoid-magic-numbers,
+-cppcoreguidelines-init-variables,
+-cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+-cppcoreguidelines-pro-bounds-pointer-arithmetic,
+-cppcoreguidelines-pro-type-vararg,
+bugprone-*,
+performance-*,
+readability-*,
+-readability-magic-numbers,
+modernize-*,
+-modernize-pass-by-value,
+-modernize-use-trailing-return-type,
+'
+AnalyzeTemporaryDtors: false
+HeaderFilterRegex: '.*'
+WarningsAsErrors: ''

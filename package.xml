@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>pylon_camera_sync</name>
+  <version>0.0.1</version>
+  <description>
+    Synchronization package for the 4 basler cameras we have on the car mount.
+  </description>
+  <maintainer email="ivizzo@uni-bonn.todo">Ignacio Vizzo</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- ROS Dependencies -->
+  <depend>actionlib</depend>
+  <depend>cv_bridge</depend>
+  <depend>diagnostic_updater</depend>
+  <depend>image_geometry</depend>
+  <depend>image_transport</depend>
+  <depend>message_generation</depend>
+  <depend>message_runtime</depend>
+  <depend>roscpp</depend>
+  <depend>roslaunch</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+  
+  <!-- External Dependencies -->
+  <depend>camera_control_msgs</depend>
+  <depend>camera_info_manager</depend>
+  <depend>dnb_msgs</depend>
+  <depend>pylon_camera</depend>
+
+  <!-- BUILD tools -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+    <git_url target="dnb_msgs" url="https://github.com/dragandbot/dragandbot_common.git"/>
+    <git_url target="pylon_camera" url="https://github.com/basler/pylon-ros-camera"/>
+  </export>
+
+</package>

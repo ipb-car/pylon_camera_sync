@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="respawn" default="false" />
+    <arg name="debug" default="false" />
+    <!-- <arg name="node_name" default="pylon_camera_node" /> -->
+    <arg name="startup_user_set" default="CurrentSetting" />
+    <arg name="enable_status_publisher" default="true" />`
+    <arg name="enable_current_params_publisher" default="true" />
+    <arg name="config_file_0" default="$(find pylon_camera_sync)/config/ac_0.yaml" />
+    <arg name="config_file_1" default="$(find pylon_camera_sync)/config/ac_1.yaml" />
+    <arg name="config_file_2" default="$(find pylon_camera_sync)/config/ac_2.yaml" />
+    <arg name="config_file_3" default="$(find pylon_camera_sync)/config/ac_3.yaml" />
+
+    <arg unless="$(arg debug)" name="launch_prefix" value="" />
+    <arg     if="$(arg debug)" name="launch_prefix" value="xterm -e gdb --args" />
+
+    <node name="camera_node_0" pkg="pylon_camera_sync" type="camera_sync_node" output="screen"
+          respawn="$(arg respawn)" launch-prefix="$(arg launch_prefix)">
+        <rosparam command="load" file="$(arg config_file_0)" />
+        <param name="startup_user_set" value="$(arg startup_user_set)"/>
+        <param name="enable_status_publisher" value="$(arg enable_status_publisher)"/>
+        <param name="enable_current_params_publisher" value="$(arg enable_current_params_publisher)"/>
+    </node>
+
+    <node name="camera_node_1" pkg="pylon_camera_sync" type="camera_sync_node" output="screen"
+          respawn="$(arg respawn)" launch-prefix="$(arg launch_prefix)">
+        <rosparam command="load" file="$(arg config_file_1)" />
+        <param name="startup_user_set" value="$(arg startup_user_set)"/>
+        <param name="enable_status_publisher" value="$(arg enable_status_publisher)"/>
+        <param name="enable_current_params_publisher" value="$(arg enable_current_params_publisher)"/>
+    </node>
+    
+    <node name="camera_node_2" pkg="pylon_camera_sync" type="camera_sync_node" output="screen"
+          respawn="$(arg respawn)" launch-prefix="$(arg launch_prefix)">
+        <rosparam command="load" file="$(arg config_file_2)" />
+        <param name="startup_user_set" value="$(arg startup_user_set)"/>
+        <param name="enable_status_publisher" value="$(arg enable_status_publisher)"/>
+        <param name="enable_current_params_publisher" value="$(arg enable_current_params_publisher)"/>
+    </node>
+
+    <node name="camera_node_3" pkg="pylon_camera_sync" type="camera_sync_node" output="screen"
+          respawn="$(arg respawn)" launch-prefix="$(arg launch_prefix)">
+        <rosparam command="load" file="$(arg config_file_3)" />
+        <param name="startup_user_set" value="$(arg startup_user_set)"/>
+        <param name="enable_status_publisher" value="$(arg enable_status_publisher)"/>
+        <param name="enable_current_params_publisher" value="$(arg enable_current_params_publisher)"/>
+    </node>
+
+</launch>

@@ -1,0 +1,59 @@
+# @file      .gitlab-ci.yml
+# @author    Ignacio Vizzo     [ivizzo@uni-bonn.de]
+#
+# Copyright (c) 2020 Ignacio Vizzo, all rights reserved
+default:
+  image: gitlab.ipb.uni-bonn.de:4567/ipb-team/robots/ipb-car/docker_images/ros:latest
+  before_script:
+    - cd catkin_ws/
+  artifacts:
+    expire_in: 10 m
+    paths:
+      - catkin_ws/
+
+stages:
+  - configure
+  - build
+  - analyse
+  - update
+
+configure:
+  stage: configure
+  before_script:
+    - mkdir -p catkin_ws/src/
+    - rsync --exclude '**/.git/' -ar $CI_PROJECT_DIR catkin_ws/src/
+    - cd catkin_ws/
+  script:
+    - catkin init
+    - catkin deps fetch --no_status
+    - catkin config --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+build:
+  stage: build
+  script:
+    - catkin build --no-status --verbose --interleave-output
+
+clang-format:
+  stage: analyse
+  script:
+    - bash run_clang_format $CI_PROJECT_DIR/catkin_ws/src/${CI_PROJECT_NAME}
+
+clang-tidy:
+  stage: analyse
+  script:
+    - source devel/setup.bash
+    - roscd ${CI_PROJECT_NAME}
+    - ./scripts/clang_tidy.sh $(catkin locate -b -e ${CI_PROJECT_NAME})
+
+catkin_lint:
+  stage: analyse
+  dependencies:
+    - build
+  script:
+    - source devel/setup.bash
+    - catkin_lint -W2 --strict --ignore uninstalled_script --pkg ${CI_PROJECT_NAME}
+
+include:
+  - project: "ipb-team/robots/ipb-car/meta-workspace"
+    ref: master
+    file: ".templates/.gitlab-ci-submodule-update.yml"
